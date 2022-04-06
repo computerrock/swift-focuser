@@ -79,7 +79,10 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
 
                 /// to show kayboard with `next` or `return`
                 if equals.hashValue == Value.last.hashValue {
-                    tf.returnKeyType = .done
+                    // NOTE: change returnKeyType to .done only if its not already adjusted to something else
+                    if tf.returnKeyType == .default {
+                         tf.returnKeyType = .done
+                    }
                 } else {
                     tf.returnKeyType = .next
                 }
