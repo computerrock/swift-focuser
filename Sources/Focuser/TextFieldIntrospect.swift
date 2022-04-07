@@ -63,6 +63,7 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
     @Binding var focusedField: Value?
     var equals: Value
     @State var observer = TextFieldObserver()
+    var returnKeyType: UIReturnKeyType?
     
     public func body(content: Content) -> some View {
         content
@@ -79,10 +80,8 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
 
                 /// to show kayboard with `next` or `return`
                 if equals.hashValue == Value.last.hashValue {
-                    // NOTE: change returnKeyType to .done only if its not already adjusted to something else
-                    if tf.returnKeyType == .default {
-                         tf.returnKeyType = .done
-                    }
+                    // NOTE: Optional setting for return key type
+                    tf.returnKeyType = returnKeyType ?? .done
                 } else {
                     tf.returnKeyType = .next
                 }
