@@ -78,13 +78,8 @@ public struct FocusModifier<Value: FocusStateCompliant & Hashable>: ViewModifier
                     focusedField = focusedField?.next ?? Value.last
                 }
 
-                /// to show kayboard with `next` or `return`
-                if equals.hashValue == Value.last.hashValue {
-                    // NOTE: Optional setting for return key type
-                    tf.returnKeyType = returnKeyType ?? .done
-                } else {
-                    tf.returnKeyType = .next
-                }
+                /// to show kayboard with `returnKeyType` or default `next`
+                tf.returnKeyType = returnKeyType ?? .next
                 
                 if focusedField == equals {
                     tf.becomeFirstResponder()
